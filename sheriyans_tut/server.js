@@ -1,19 +1,26 @@
-import http from "http"
+import express from "express"
 
-const server = http.createServer((req, res) => {
-    console.log(req.url);
-    if (req.url === "/") {
-        res.end("Hello")
-    }
-    else if (req.url === "/about") {
-        res.end("This is about")
+const app = express();
 
-    }
+// to render html fetching from the server
+app.set("view engine", "ejs") // set view engine of ejs
 
+app.get("/", (req, res) => {
+    res.render("index")
 })
 
-// run on port 3000
-server.listen(3000, () => {
-    console.log("The app is running on port: 3000");
+app.get("/about", (req, res) => {
+    res.send("This is about")
+})
 
+app.get("/profile", (req, res) => {
+    res.send("Profile")
+})
+
+
+// listen app on port
+const PORT = 3000;
+
+app.listen(PORT, () => {
+    console.log("The app is running on port:" + PORT);
 })
